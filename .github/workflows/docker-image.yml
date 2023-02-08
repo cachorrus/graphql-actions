@@ -23,9 +23,9 @@ jobs:
         DOCKER_USER: ${{ secrets.DOCKER_USER }}
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
       run: | #significa ejecutar lineas independientes en el bash
-        echo: "Iniciando login"
+        echo "Iniciando login"
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-        echo: "Finaliznado el login"
+        echo "Finaliznado el login"
     
     #- name: Build the Docker image
     #  run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
