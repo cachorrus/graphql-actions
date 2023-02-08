@@ -46,6 +46,8 @@ jobs:
         docker image build -t cachorrus/docker-graphql:latest .
     
     - name: Push the Docker image
+      env:
+        NEW_VERSION: ${{ steps.version.outputs.version }}
       run: |
         docker push cachorrus/docker-graphql:$NEW_VERSION
         docker push cachorrus/docker-graphql:latest
