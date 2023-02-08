@@ -30,23 +30,22 @@ jobs:
     - name: Docker login
       env:
         DOCKER_USER: ${{ secrets.DOCKER_USER }}
-        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-        NEW_VERSION: ${{ steps.version.outputs.version }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}        
         
       run: | #significa ejecutar lineas independientes en el bash
         echo "Iniciando login"
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-        echo "Finalizando el login"
-        echo "New Version: $NEW_VERSION!!!!"
+        echo "Finalizando el login"        
      
-#    - name: Build the Docker image
-#    #  run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
-#      run: |
-#        docker image build -t cachorrus/docker-graphql:0.0.2 .
-#        docker image build -t cachorrus/docker-graphql:latest .
-#    
-#    - name: Push the Docker image
-#    #  run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
-#      run: |
-#        docker push cachorrus/docker-graphql:0.0.2
-#        docker push cachorrus/docker-graphql:latest
+    - name: Build the Docker image
+    #  run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+      env:
+        NEW_VERSION: ${{ steps.version.outputs.version }} # Esta steps viene del versionamiento semantico
+      run: |
+        docker image build -t cachorrus/docker-graphql:$NEW_VERSION .
+        docker image build -t cachorrus/docker-graphql:latest .
+    
+    - name: Push the Docker image
+      run: |
+        docker push cachorrus/docker-graphql:NEW_VERSION
+        docker push cachorrus/docker-graphql:latest
