@@ -35,4 +35,4 @@ jobs:
     - name: Push the Docker image
     #  run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
       run: |
-        docker push -t cachorrus/docker-graphql:0.0.2 .
+        docker push -t cachorrus/docker-graphql:0.0.2
